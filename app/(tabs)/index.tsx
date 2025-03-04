@@ -14,7 +14,8 @@ interface Place {
     longitude: number;
   };
   address: string;
-  tags: string[]; // 新增地標的分類標籤（例如全素、便當）
+  tags: string[]; // 標籤（例如：全素、便當）
+  googleStar: number;
 }
 
 // 素食地點列表
@@ -25,7 +26,8 @@ const vegetarianPlaces: Place[] = [
     description: 'Google 評價 3.9 (152)',
     coordinate: { latitude: 24.993628, longitude: 121.300981 },
     address: '桃園市桃園區縣府路123號',
-    tags: ['全素', '便當'],
+    tags: ['便當','全素'],
+    googleStar: 3.9,
   },
   {
     id: 2,
@@ -34,6 +36,7 @@ const vegetarianPlaces: Place[] = [
     coordinate: { latitude: 24.991245, longitude: 121.313562 },
     address: '桃園市桃園區中正路456號',
     tags: ['便當'],
+    googleStar: 4.2,
   },
 ];
 
@@ -111,11 +114,16 @@ const HomeScreen: React.FC = () => {
           <Marker
             key={place.id}
             coordinate={place.coordinate}
-            title={place.title}
-            description={place.description}
+            // title={place.title}
+            // description={place.description}
             onPress={() => showInfoWindow(place)}
           >
-            <IconSymbol size={28} name="paperplane.fill" color="balck" />
+            <View style={styles.markerContainer}>
+              <Image source={require('./marker-icon.png')} style={styles.markerIcon} />
+              <Text style={styles.markerText}>
+                {place.tags[0]} / {place.googleStar}
+              </Text>
+            </View>
           </Marker>
         ))}
       </MapView>
@@ -135,9 +143,22 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  markerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F9A201', // 背景色
+    borderWidth: 1, // 外框
+    borderColor: 'black',
+    borderRadius: 20, // 讓區塊變橢圓形
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+  },
   markerIcon: {
-    width: 30,
-    height: 30,
+    marginRight: 5,
+  },
+  markerText: {
+    color: 'black',
+    fontWeight: 'bold',
   },
   infoWindow: {
     position: 'absolute',
