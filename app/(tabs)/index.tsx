@@ -26,7 +26,7 @@ const vegetarianPlaces: Place[] = [
     description: 'Google 評價 3.9 (152)',
     coordinate: { latitude: 24.993628, longitude: 121.300981 },
     address: '桃園市桃園區縣府路123號',
-    tags: ['便當','全素'],
+    tags: ['便當', '全素'],
     googleStar: 3.9,
   },
   {
@@ -49,7 +49,7 @@ const InfoWindow: React.FC<{ place: Place | null; onClose: () => void; slideAnim
       <TouchableOpacity style={styles.closeButton} onPress={onClose}>
         <Text style={styles.closeText}>✖</Text>
       </TouchableOpacity>
-      
+
       {/* 標籤區塊 */}
       <View style={styles.tagsContainer}>
         {place.tags.map((tag, index) => (
@@ -119,7 +119,9 @@ const HomeScreen: React.FC = () => {
             onPress={() => showInfoWindow(place)}
           >
             <View style={styles.markerContainer}>
-              <Image source={require('./marker-icon.png')} style={styles.markerIcon} />
+              <View style={styles.imageBox}>
+                <Image source={require('../../assets/images/marker-icon.png')} style={styles.markerIcon} />
+              </View>
               <Text style={styles.markerText}>
                 {place.tags[0]} / {place.googleStar}
               </Text>
@@ -154,7 +156,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   markerIcon: {
+    height: 15,
+    width: 15,
+  },
+  imageBox: {
+    alignItems: 'center',
+    justifyContent:'center',
+    backgroundColor: 'white',
     marginRight: 5,
+    height: 20,
+    width: 20,
+    borderRadius: 10,
   },
   markerText: {
     color: 'black',
