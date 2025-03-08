@@ -123,7 +123,7 @@ const HomeScreen: React.FC = () => {
                 <Image source={require('../../assets/images/marker-icon.png')} style={styles.markerIcon} />
               </View>
               <Text style={styles.markerText}>
-                {place.tags[0]} / {place.googleStar}
+                {place.title} / {place.googleStar}
               </Text>
             </View>
           </Marker>
