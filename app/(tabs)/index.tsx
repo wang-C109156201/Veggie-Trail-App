@@ -108,6 +108,7 @@ const InfoWindow: React.FC<{ place: Place | null; onClose: () => void; slideAnim
 const HomeScreen: React.FC = () => {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const slideAnim = useRef(new Animated.Value(200)).current; // 設定動畫初始值（隱藏）
+  const [selectedPlaceId, setSelectedPlaceId] = useState<number | null>(null);
 
   // 顯示小視窗
   const showInfoWindow = (place: Place) => {
@@ -117,6 +118,15 @@ const HomeScreen: React.FC = () => {
       duration: 300,
       useNativeDriver: true,
     }).start();
+
+    setSelectedPlaceId(place.id);  //記錄被選中的 Marker ID
+    setSelectedPlace(place);
+    Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+
   };
   
 
@@ -149,7 +159,13 @@ const HomeScreen: React.FC = () => {
             // description={place.description}
             onPress={() => showInfoWindow(place)}
           >
-            <View style={styles.markerContainer}>
+            
+            
+            <View style={[
+              styles.markerContainer, 
+              selectedPlaceId === place.id ? styles.selectedMarker : {} //  選中時變色
+              ]}>
+            
               <View style={styles.imageBox}>
                 <Image 
                 source={
@@ -281,6 +297,9 @@ const styles = StyleSheet.create({
   addressText: {
     marginLeft: 5,
     fontSize: 16,
+  },
+  selectedMarker: {
+    backgroundColor: '#A67C52',  // 選中的顏色（加深的棕色）
   },
 });
 
