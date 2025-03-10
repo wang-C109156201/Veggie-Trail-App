@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Animated, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Animated, Image, Alert } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 
@@ -17,6 +17,8 @@ interface Place {
   tags: string[]; // 標籤（例如：全素、便當）
   googleStar: number;
 }
+
+
 
 // 素食地點列表
 const vegetarianPlaces: Place[] = [
@@ -40,12 +42,36 @@ const vegetarianPlaces: Place[] = [
   },
 ];
 
+// 新增收藏狀態
+
 // 小視窗組件，固定在底部
 const InfoWindow: React.FC<{ place: Place | null; onClose: () => void; slideAnim: Animated.Value }> = ({ place, onClose, slideAnim }) => {
   if (!place) return null;
 
+  const [favorites, setFavorites] = useState<{ [key: number]: boolean }>({});
+  const toggleFavorite = () => {
+    setFavorites(prev => ({
+      ...prev,
+      [place.id]: !prev[place.id]
+    }));
+    Alert.alert(!favorites[place.id] ? `${place.title} 已收藏` : "已取消收藏");
+  };
+
+
   return (
     <Animated.View style={[styles.infoWindow, { transform: [{ translateY: slideAnim }] }]}>
+      
+      {/* 右上角 收藏按鈕 */}
+      <TouchableOpacity style={styles.favoriteButton} onPress={toggleFavorite}>
+        <IconSymbol 
+          size={24} 
+          name="heart" 
+          color={favorites[place.id] ? "red" : "#017D61"}  // 每間餐廳有獨立收藏狀態
+        />
+      </TouchableOpacity>
+      
+
+      {/* 右上角關閉按鈕 */}
       <TouchableOpacity style={styles.closeButton} onPress={onClose}>
         <Text style={styles.closeText}>✖</Text>
       </TouchableOpacity>
@@ -53,9 +79,9 @@ const InfoWindow: React.FC<{ place: Place | null; onClose: () => void; slideAnim
       {/* 標籤區塊 */}
       <View style={styles.tagsContainer}>
         {place.tags.map((tag, index) => (
-          <Text key={index} style={styles.tag}>
-            {tag}
-          </Text>
+          <View key={index} style={styles.tag}>
+          <Text style={{ color: '#017D61', fontSize: 14, fontWeight: 'bold' }}>{tag}</Text>
+        </View>
         ))}
       </View>
 
@@ -64,12 +90,16 @@ const InfoWindow: React.FC<{ place: Place | null; onClose: () => void; slideAnim
 
       {/* 評價資訊 */}
       <View style={styles.ratingContainer}>
-        <IconSymbol size={28} name="paperplane.fill" color="balck" />
-        <Text>{place.description}</Text>
+      <IconSymbol size={20} name="star" color="black" />
+        <Text style={{ marginLeft: 5, fontSize: 16 }}>{place.description}</Text>  
       </View>
 
       {/* 地址 */}
-      <Text>{place.address}</Text>
+      <View style={styles.addressContainer}>
+        <IconSymbol size={20} name="location" color="black" />
+        <Text style={styles.addressText}>{place.address}</Text>
+</View>
+      
     </Animated.View>
   );
 };
@@ -88,6 +118,7 @@ const HomeScreen: React.FC = () => {
       useNativeDriver: true,
     }).start();
   };
+  
 
   // 隱藏小視窗
   const hideInfoWindow = () => {
@@ -186,8 +217,8 @@ const styles = StyleSheet.create({
     left: 15,
     right: 15,
     backgroundColor: '#FFFAF2', // 修改背景顏色
-    padding: 15,
-    borderRadius: 15,
+    padding: 20,
+    borderRadius: 20,
     borderWidth: 1, // 黑色邊框
     borderColor: '#000',
     shadowColor: '#000',
@@ -198,27 +229,27 @@ const styles = StyleSheet.create({
   },
   tagsContainer: {
     flexDirection: 'row',
-    marginBottom: 5,
+    marginBottom: 8,
   },
   tag: {
-    backgroundColor: '#E0F2F1',
+    backgroundColor: '#F4F4C5',
     color: '#017D61',
     fontSize: 12,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
     marginRight: 5,
   },
   infoTitle: {
     fontWeight: 'bold',
     fontSize: 18,
-    marginBottom: 5,
+    marginBottom: 10,
     color: '#017D61', // 修改標題顏色
   },
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 5,
+    marginBottom: 8,
   },
   ratingIcon: {
     width: 16,
@@ -236,6 +267,20 @@ const styles = StyleSheet.create({
   closeText: {
     fontSize: 16,
     color: 'black',
+  },
+  favoriteButton: {  
+    position: 'absolute',
+    right: 55,
+    top: 18,
+  },
+  addressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 3,
+  },
+  addressText: {
+    marginLeft: 5,
+    fontSize: 16,
   },
 });
 
