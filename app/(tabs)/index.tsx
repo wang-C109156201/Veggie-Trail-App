@@ -35,7 +35,7 @@ const vegetarianPlaces: Place[] = [
     description: 'Google 評價 4.2 (89)',
     coordinate: { latitude: 24.991245, longitude: 121.313562 },
     address: '桃園市桃園區中正路456號',
-    tags: ['便當'],
+    tags: ['日式料理'],
     googleStar: 4.2,
   },
 ];
@@ -121,7 +121,6 @@ const HomeScreen: React.FC = () => {
             <View style={styles.markerContainer}>
               <View style={styles.imageBox}>
                 <Image 
-                // source={require('../../assets/images/marker-icon.png')} 
                 source={
                   place.id === 1
                     ? require("../../assets/images/marker-icon.png") // 青禾素食館的圖片
@@ -178,8 +177,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   markerText: {
-    color: 'black',
-    fontWeight: 'bold',
+    color: 'white' 
+    // fontWeight: 'bold',
   },
   infoWindow: {
     position: 'absolute',
