@@ -120,10 +120,19 @@ const HomeScreen: React.FC = () => {
           >
             <View style={styles.markerContainer}>
               <View style={styles.imageBox}>
-                <Image source={require('../../assets/images/marker-icon.png')} style={styles.markerIcon} />
+                <Image 
+                // source={require('../../assets/images/marker-icon.png')} 
+                source={
+                  place.id === 1
+                    ? require("../../assets/images/marker-icon.png") // 青禾素食館的圖片
+                    : require("../../assets/images/avocoda.png") // 素食便當店的圖片
+                }
+                style={styles.markerIcon} 
+                />
+                
               </View>
               <Text style={styles.markerText}>
-                {place.title} / {place.googleStar}
+                {place.tags[0]} / {place.googleStar}
               </Text>
             </View>
           </Marker>
