@@ -7,10 +7,18 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { Image } from 'react-native';
+import { useAssets } from 'expo-asset';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
+  const [assets] = useAssets([
+    require('../../assets/images/map-icon.png'),
+    require('../../assets/images/helper-icon.png'),
+    require('../../assets/images/task-icon.png'),
+    require('../../assets/images/coupon-icon.png'),
+    require('../../assets/images/member-icon.png'),
+  ]);
   return (
     <Tabs
       screenOptions={{
@@ -29,36 +37,51 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: '地圖',
+          tabBarIcon: ({ color, size }) =>
+            assets && assets[0]?.uri ? (
+              <Image source={{ uri: assets[0].uri }} style={{ width: size, height: size, tintColor: color }} />
+            ) : null,
         }}
       />
       <Tabs.Screen
-          name="helper"
-          options={{
-            title: '小幫手',
-            tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-          }}
-        />
+        name="helper"
+        options={{
+          title: '小幫手',
+          tabBarIcon: ({ color, size }) =>
+            assets && assets[1]?.uri ? (
+              <Image source={{ uri: assets[1].uri }} style={{ width: size, height: size, tintColor: color }} />
+            ) : null,
+        }}
+      />
       <Tabs.Screen
-        name="explore"
+        name="task"
         options={{
           title: '任務',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color, size }) =>
+            assets && assets[2]?.uri ? (
+              <Image source={{ uri: assets[2].uri }} style={{ width: size, height: size, tintColor: color }} />
+            ) : null,
         }}
       />
       <Tabs.Screen
-        name="cupon"
+        name="coupon"
         options={{
           title: '優惠卷',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color, size }) =>
+            assets && assets[3]?.uri ? (
+              <Image source={{ uri: assets[3].uri }} style={{ width: size, height: size, tintColor: color ,resizeMode: 'contain',}} />
+            ) : null,
         }}
       />
       <Tabs.Screen
         name="member"
         options={{
           title: '個人中心',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color, size }) =>
+            assets && assets[4]?.uri ? (
+              <Image source={{ uri: assets[4].uri }} style={{ width: size, height: size, tintColor: color }} />
+            ) : null,
         }}
       />
     </Tabs>
