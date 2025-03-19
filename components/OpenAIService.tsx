@@ -1,26 +1,28 @@
 import axios from 'axios';
-
-const API_KEY = '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';
+import { OPENAI_API_KEY } from '@env';  // 讀取 .env 變數
 
 const openAI = axios.create({
   baseURL: 'https://api.openai.com/v1',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${API_KEY}`,
+    'Authorization': `Bearer ${OPENAI_API_KEY}`,
   },
 });
 
 export const generateText = async (prompt: string): Promise<string> => {
   try {
-    const response = await openAI.post('/completions', {
-      model: 'gpt-4',
-      prompt,
-      max_tokens: 150,
+    const response = await openAI.post('/chat/completions', {
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'user', content: prompt }
+      ],
+      max_tokens: 50,
     });
 
-    return response.data.choices[0].text;
+    return response.data.choices[0].message.content;
   } catch (error) {
-    console.error('Error generating text:', error);
+    console.error('Error calling OpenAI:', error);
     throw error;
   }
 };
