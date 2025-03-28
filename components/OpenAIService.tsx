@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { OPENAI_API_KEY } from '@env';  // 讀取 .env 變數
+import { EXPO_PUBLIC_OPENAI_API_KEY } from '@env';  // 讀取 .env 變數
 
 const openAI = axios.create({
   baseURL: 'https://api.openai.com/v1',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${OPENAI_API_KEY}`,
+    'Authorization': `Bearer ${EXPO_PUBLIC_OPENAI_API_KEY}`,
   },
 });
 

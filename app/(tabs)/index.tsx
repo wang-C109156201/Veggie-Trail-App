@@ -3,7 +3,6 @@ import { View, StyleSheet, Text, TouchableOpacity, Animated, Image, Alert } from
 import MapView, { Marker } from 'react-native-maps';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 
-
 // 定義地點的 TypeScript 類型
 interface Place {
   id: number;
@@ -17,8 +16,6 @@ interface Place {
   tags: string[]; // 標籤（例如：全素、便當）
   googleStar: number;
 }
-
-
 
 // 素食地點列表
 const vegetarianPlaces: Place[] = [
