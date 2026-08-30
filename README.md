@@ -28,7 +28,7 @@ Veggie Trail App 的想法是讓尋找素食餐廳變得更直覺。使用者進
 ```
 
 ## AI 小幫手
-專案中有串接 **OpenAI API**，讓使用者可以輸入文字並取得 AI 回覆。公開 Repository 不提供 OpenAI API Key，AI 功能目前不開放直接使用。
+專案中有串接 **OpenAI API**，讓使用者可以輸入文字並取得 AI 回覆。但　AI 功能目前不開放直接使用。
 
 ## 使用技術
 - React Native
