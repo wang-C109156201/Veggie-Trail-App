@@ -1,50 +1,45 @@
-# Welcome to your Expo app 👋
+# Veggie Trail App｜素食地圖探索 App
+Veggie Trail App 的想法是讓尋找素食餐廳變得更直覺。使用者進入 App 後，可以直接從地圖查看素食餐廳位置，點擊地圖上的餐廳標記後，畫面會顯示該餐廳的名稱、類型、評價與地址等資訊。除了地圖探索之外，App 也規劃了 AI 小幫手、任務、優惠券與個人中心等功能，希望發展成一個結合 **素食探索、互動與生活資訊** 的行動應用程式。
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+## 目前完成的功能
+- 以地圖顯示素食餐廳位置
+- 點擊地圖 Marker 查看餐廳資訊
+- 顯示餐廳名稱、地址、類型與 Google 評價
+- 餐廳標籤，例如全素、便當、日式料理
+- 餐廳收藏互動
+- 地圖餐廳資訊視窗動畫
+- AI 文字小幫手介面
+- Bottom Tab 分頁導覽
 
-1. Install dependencies
+## App 頁面
+```text
+地圖
+├── 素食餐廳位置
+├── 餐廳資訊
+└── 收藏
 
-   ```bash
-   npm install
-   ```
+小幫手
+└── AI 文字問答
 
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+任務
+優惠券
+個人中心
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## AI 小幫手
+專案中有串接 **OpenAI API**，讓使用者可以輸入文字並取得 AI 回覆。公開 Repository 不提供 OpenAI API Key，AI 功能目前不開放直接使用。
 
-## Learn more
+## 使用技術
+- React Native
+- Expo
+- Expo Router
+- TypeScript
+- React Native Maps
+- Axios
+- OpenAI API
 
-To learn more about developing your project with Expo, look at the following resources:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 專案目前狀態
+目前主要完成 **地圖餐廳探索功能與 AI 小幫手串接實作**。「任務」、「優惠券」與「個人中心」已建立 App 導覽入口，但內容仍在開發與規劃階段。
+這個作品主要是我在學習 React Native / Expo 時，嘗試將地圖、第三方 API 與行動 App UI 整合在同一個專案中，並以素食餐廳探索作為應用主題。
